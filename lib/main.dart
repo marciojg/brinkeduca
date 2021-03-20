@@ -21,17 +21,24 @@ class MyApp extends StatelessWidget {
               mainAxisSpacing: 10,
               crossAxisCount: 2,
               children: List.generate(4, (index) {
-                return Container(
-                  padding: EdgeInsets.all(20),
-                  color: Colors.blueAccent[100],
-                  child: Center(
-                    child: Text(
-                      'Jogo $index',
-                      style: Theme.of(context).textTheme.headline5,
+                return InkWell(
+                  child: Container(
+                    padding: EdgeInsets.all(20),
+                    color: Colors.blueAccent[100],
+                    child: Center(
+                      child: Text(
+                        'Jogo $index',
+                        style: Theme.of(context).textTheme.headline5,
+                      ),
                     ),
                   ),
+                  onTap: () {
+                    print('aaaaaaaaaaa $index');
+                  }
                 );
               }),
-            )));
+            )
+        )
+    );
   }
 }
