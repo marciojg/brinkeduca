@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/core/routes.dart';
+import 'package:flutter_app/screens/game1Page.dart';
 import 'package:flutter_app/screens/menuPage.dart';
 
 void main() {
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
         initialRoute: Routes.menu,
         routes: {
           Routes.menu: (context) => MenuPage(),
-          Routes.game_1: (context) => Container(child: Text('asdadsasdasd'),)
+          Routes.game_1: (context) => Game1Page(),
         }
     );
   }
