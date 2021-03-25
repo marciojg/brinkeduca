@@ -30,17 +30,6 @@ class _MemoryGameState extends State<MemoryGame> {
 
   Widget getItem(int index) {
     return Container(
-      decoration: BoxDecoration(
-          color: Colors.grey[100],
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black45,
-              blurRadius: 3,
-              spreadRadius: 0.8,
-              offset: Offset(2.0, 1),
-            )
-          ],
-          borderRadius: BorderRadius.circular(5)),
       margin: EdgeInsets.all(4.0),
       child: Image.asset(_data[index]),
     );
@@ -83,64 +72,64 @@ class _MemoryGameState extends State<MemoryGame> {
     super.dispose();
   }
 
+  Scaffold playAgainPage() {
+    return Scaffold(
+      body: Center(
+        child: GestureDetector(
+          onTap: () {
+            setState(() {
+              restart();
+            });
+          },
+          child: Container(
+            height: 50,
+            width: 200,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: Colors.blue,
+              borderRadius: BorderRadius.circular(24),
+            ),
+            child: Text(
+              "Jogar novamente",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 17,
+                  fontWeight: FontWeight.w500),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     if (_isFinished) {
-      return Scaffold(
-          body: Center(
-            child: GestureDetector(
-              onTap: () {
-                setState(() {
-                  restart();
-                });
-              },
-              child: Container(
-                height: 50,
-                width: 200,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                  borderRadius: BorderRadius.circular(24),
-                ),
-                child: Text(
-                  "Replay",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 17,
-                      fontWeight: FontWeight.w500),
-                ),
-              ),
-            ),
-          ),
-        );
+      return playAgainPage();
     } else {
       return Scaffold(
-          body: SafeArea(
-            child: SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: _time > 0
-                        ? Text(
-                      '$_time',
-                      style: Theme.of(context).textTheme.headline3,
-                    )
-                        : Text(
-                      'Left:$_left',
-                      style: Theme.of(context).textTheme.headline3,
-                    ),
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                    (_time > 0) ? '$_time' : 'Faltam: $_left',
+                    style: Theme.of(context).textTheme.headline3,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: GridView.builder(
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                      ),
-                      itemBuilder: (context, index) => _start
-                          ? FlipCard(
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: GridView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                    ),
+                    itemBuilder: (context, index) {
+                      if(_start) {
+                        return FlipCard(
                             key: _cardStateKeys[index],
                             onFlip: () {
                               if (!_flip) {
@@ -153,24 +142,23 @@ class _MemoryGameState extends State<MemoryGame> {
                                     _wait = true;
 
                                     Future.delayed(
-                                        const Duration(milliseconds: 1500),
-                                            () {
-                                          _cardStateKeys[_previousIndex]
-                                              .currentState
-                                              .toggleCard();
-                                          _previousIndex = index;
-                                          _cardStateKeys[_previousIndex]
-                                              .currentState
-                                              .toggleCard();
+                                        const Duration(milliseconds: 1500), () {
+                                      _cardStateKeys[_previousIndex]
+                                          .currentState
+                                          .toggleCard();
+                                      _previousIndex = index;
+                                      _cardStateKeys[_previousIndex]
+                                          .currentState
+                                          .toggleCard();
 
-                                          Future.delayed(
-                                              const Duration(milliseconds: 160),
-                                                  () {
-                                                setState(() {
-                                                  _wait = false;
-                                                });
-                                              });
-                                        });
+                                      Future.delayed(
+                                          const Duration(milliseconds: 160),
+                                              () {
+                                            setState(() {
+                                              _wait = false;
+                                            });
+                                          });
+                                    });
                                   } else {
                                     _cardFlips[_previousIndex] = false;
                                     _cardFlips[index] = false;
@@ -179,8 +167,7 @@ class _MemoryGameState extends State<MemoryGame> {
                                     setState(() {
                                       _left -= 1;
                                     });
-                                    if (_cardFlips
-                                        .every((t) => t == false)) {
+                                    if (_cardFlips.every((t) => t == false)) {
                                       print("Won");
                                       Future.delayed(
                                           const Duration(milliseconds: 160),
@@ -199,36 +186,22 @@ class _MemoryGameState extends State<MemoryGame> {
                             flipOnTouch: _wait ? false : _cardFlips[index],
                             direction: FlipDirection.HORIZONTAL,
                             front: Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.grey,
-                                  borderRadius: BorderRadius.circular(5),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black45,
-                                      blurRadius: 3,
-                                      spreadRadius: 0.8,
-                                      offset: Offset(2.0, 1),
-                                    )
-                                  ]),
                               margin: EdgeInsets.all(4.0),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Image.asset(
-                                  "assets/question.png",
-                                ),
-                              ),
+                              child: Image.asset("assets/question.png"),
                             ),
-                            back: getItem(index)
-                          )
-                          : getItem(index),
-                      itemCount: _data.length,
-                    ),
+                            back: getItem(index));
+                      } else {
+                        return getItem(index);
+                      }
+                    },
+                    itemCount: _data.length,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-        );
+        ),
+      );
     }
   }
 }
