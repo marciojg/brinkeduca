@@ -1,8 +1,8 @@
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/data/cardList.dart';
+import 'package:flutter_app/data/cardModel.dart';
 import 'dart:async';
-
-import 'data.dart';
 
 class MemoryGame extends StatefulWidget {
   MemoryGame();
@@ -23,15 +23,13 @@ class _MemoryGameState extends State<MemoryGame> {
   int _time = 5;
   int _left;
   bool _isFinished;
-  List<String> _data;
-
-  List<bool> _cardFlips;
+  List<CardModel> _data;
   List<GlobalKey<FlipCardState>> _cardStateKeys;
 
   Widget getItem(int index) {
     return Container(
       margin: EdgeInsets.all(4.0),
-      child: Image.asset(_data[index]),
+      child: Image.asset(_data[index].getImageAssetPath),
     );
   }
 
@@ -45,8 +43,7 @@ class _MemoryGameState extends State<MemoryGame> {
 
   void restart() {
     startTimer();
-    _data = getSourceArray();
-    _cardFlips = getInitialItemState();
+    _data = getPairsOfCards();
     _cardStateKeys = getCardStateKeys();
     _time = 5;
     _left = (_data.length ~/ 2);
@@ -138,7 +135,8 @@ class _MemoryGameState extends State<MemoryGame> {
                               } else {
                                 _flip = false;
                                 if (_previousIndex != index) {
-                                  if (_data[_previousIndex] != _data[index]) {
+                                  if (_data[_previousIndex].getImageAssetPath !=
+                                      _data[index].getImageAssetPath) {
                                     _wait = true;
 
                                     Future.delayed(
@@ -160,14 +158,14 @@ class _MemoryGameState extends State<MemoryGame> {
                                           });
                                     });
                                   } else {
-                                    _cardFlips[_previousIndex] = false;
-                                    _cardFlips[index] = false;
-                                    print(_cardFlips);
+                                    _data[_previousIndex].setIsSelected(true);
+                                    _data[index].setIsSelected(true);
+                                    print(List.of(_data.map((e) => e.getIsSelected)));
 
                                     setState(() {
                                       _left -= 1;
                                     });
-                                    if (_cardFlips.every((t) => t == false)) {
+                                    if (_data.every((d) => d.getIsSelected == true)) {
                                       print("Won");
                                       Future.delayed(
                                           const Duration(milliseconds: 160),
@@ -183,7 +181,7 @@ class _MemoryGameState extends State<MemoryGame> {
                               }
                               setState(() {});
                             },
-                            flipOnTouch: _wait ? false : _cardFlips[index],
+                            flipOnTouch: _wait ? false : !_data[index].getIsSelected,
                             direction: FlipDirection.HORIZONTAL,
                             front: Container(
                               margin: EdgeInsets.all(4.0),

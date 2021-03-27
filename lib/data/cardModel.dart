@@ -1,22 +1,18 @@
 class CardModel {
-  String imageAssetPath;
-  bool isSelected;
+  String _imageAssetPath;
+  bool _isSelected;
 
-  CardModel(this.imageAssetPath, { this.isSelected = false });
+  CardModel(this._imageAssetPath, [this._isSelected = false]);
 
-  void setImageAssetPath(String imagePath) {
-    imageAssetPath = imagePath;
-  }
-
-  String getImageAssetPath() {
-    return imageAssetPath;
+  String get getImageAssetPath {
+    return _imageAssetPath;
   }
 
   void setIsSelected(bool selected) {
-    isSelected = selected;
+    _isSelected = selected;
   }
 
-  bool getIsSelected() {
-    return isSelected;
+  bool get getIsSelected {
+    return _isSelected;
   }
 }
