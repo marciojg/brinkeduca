@@ -1,5 +1,5 @@
 import 'package:flip_card/flip_card.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_app/data/cardModel.dart';
 
 List<String> _imagesSourceArray() {

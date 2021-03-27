@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/core/routes.dart';
-import 'package:flutter_app/screens/memoryGame.dart';
+import 'package:flutter_app/screens/memoryGamePage.dart';
 import 'package:flutter_app/screens/menuPage.dart';
+import 'package:flutter_app/screens/playAgainPage.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,7 +16,8 @@ class MyApp extends StatelessWidget {
         initialRoute: Routes.menu,
         routes: {
           Routes.menu: (context) => MenuPage(),
-          Routes.game_1: (context) => MemoryGame(),
+          Routes.game_1: (context) => MemoryGamePage(),
+          Routes.playAgain: (context) => PlayAgainPage()
         }
     );
   }
