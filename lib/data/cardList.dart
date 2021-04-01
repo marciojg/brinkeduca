@@ -1,5 +1,3 @@
-import 'package:flip_card/flip_card.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_app/data/cardModel.dart';
 
 List<String> _imagesSourceArray() {
@@ -26,15 +24,4 @@ List<CardModel> getPairsOfCards() {
 
   pairOfCards.shuffle();
   return pairOfCards;
-}
-
-List<GlobalKey<FlipCardState>> getCardStateKeys() {
-  List<GlobalKey<FlipCardState>> cardStateKeys =
-      <GlobalKey<FlipCardState>>[];
-
-  for (int i = 0; i < getPairsOfCards().length; i++) {
-    cardStateKeys.add(GlobalKey<FlipCardState>());
-  }
-
-  return cardStateKeys;
 }

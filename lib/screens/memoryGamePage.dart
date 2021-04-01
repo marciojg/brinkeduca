@@ -24,7 +24,6 @@ class _MemoryGamePageState extends State<MemoryGamePage> {
   int _time = 5;
   int _left;
   List<CardModel> _data;
-  List<GlobalKey<FlipCardState>> _cardStateKeys;
 
   @override
   void initState() {
@@ -71,7 +70,7 @@ class _MemoryGamePageState extends State<MemoryGamePage> {
 
   Widget flipCard(int index) {
     return FlipCard(
-        key: _cardStateKeys[index],
+        key: _data[index].getKey,
         onFlip: () {
           if (!_flip) {
             _flip = true;
@@ -83,14 +82,9 @@ class _MemoryGamePageState extends State<MemoryGamePage> {
                 _wait = true;
 
                 Future.delayed(
-                    const Duration(milliseconds: 1500), () {
-                  _cardStateKeys[_previousIndex]
-                      .currentState
-                      .toggleCard();
-                  _previousIndex = index;
-                  _cardStateKeys[_previousIndex]
-                      .currentState
-                      .toggleCard();
+                  const Duration(milliseconds: 1500), () {
+                    _data[_previousIndex].getKey.currentState.toggleCard();
+                    _data[index].getKey.currentState.toggleCard();
 
                   Future.delayed(
                     const Duration(milliseconds: 160), () {
@@ -163,7 +157,6 @@ class _MemoryGamePageState extends State<MemoryGamePage> {
   void restart() {
     startTimer();
     _data = getPairsOfCards();
-    _cardStateKeys = getCardStateKeys();
     _time = 5;
     _left = (_data.length ~/ 2);
 

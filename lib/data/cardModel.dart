@@ -1,8 +1,20 @@
-class CardModel {
-  String _imageAssetPath;
-  bool _isSelected;
+import 'package:flip_card/flip_card.dart';
+import 'package:flutter/material.dart';
 
-  CardModel(this._imageAssetPath, [this._isSelected = false]);
+class CardModel {
+  bool _isSelected;
+  GlobalKey<FlipCardState> _key;
+  final String _imageAssetPath;
+
+  CardModel(
+    this._imageAssetPath,
+    [this._isSelected = false]) {
+    this._key = GlobalKey<FlipCardState>();
+  }
+
+  GlobalKey<FlipCardState>get getKey {
+    return _key;
+  }
 
   String get getImageAssetPath {
     return _imageAssetPath;
