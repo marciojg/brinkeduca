@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/core/routes.dart';
 
 class PlayAgainPage extends StatelessWidget {
   @override
@@ -8,7 +7,7 @@ class PlayAgainPage extends StatelessWidget {
       body: Center(
         child: GestureDetector(
           onTap: () {
-            Navigator.pushReplacementNamed(context, Routes.game_1);
+            Navigator.pop(context, true);
           },
           child: Container(
             height: 50,
@@ -21,9 +20,10 @@ class PlayAgainPage extends StatelessWidget {
             child: Text(
               "Jogar novamente",
               style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 17,
-                  fontWeight: FontWeight.w500),
+                color: Colors.white,
+                fontSize: 17,
+                fontWeight: FontWeight.w500
+              ),
             ),
           ),
         ),

@@ -26,6 +26,121 @@ class _MemoryGamePageState extends State<MemoryGamePage> {
   List<CardModel> _data;
   List<GlobalKey<FlipCardState>> _cardStateKeys;
 
+  @override
+  void initState() {
+    super.initState();
+
+    restart();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: initialTimer()
+              ),
+              Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: GridView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                  ),
+                  itemCount: _data.length,
+                  itemBuilder: (context, index) {
+                    if(_start) {
+                      return flipCard(index);
+                    } else {
+                      return getItem(index);
+                    }
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget flipCard(int index) {
+    return FlipCard(
+        key: _cardStateKeys[index],
+        onFlip: () {
+          if (!_flip) {
+            _flip = true;
+            _previousIndex = index;
+          } else {
+            _flip = false;
+            if (_previousIndex != index) {
+              if (_data[_previousIndex].getImageAssetPath != _data[index].getImageAssetPath) {
+                _wait = true;
+
+                Future.delayed(
+                    const Duration(milliseconds: 1500), () {
+                  _cardStateKeys[_previousIndex]
+                      .currentState
+                      .toggleCard();
+                  _previousIndex = index;
+                  _cardStateKeys[_previousIndex]
+                      .currentState
+                      .toggleCard();
+
+                  Future.delayed(
+                    const Duration(milliseconds: 160), () {
+                      setState(() {
+                        _wait = false;
+                      });
+                  });
+                });
+
+              } else {
+                _data[_previousIndex].setIsSelected(true);
+                _data[index].setIsSelected(true);
+                print(List.of(_data.map((e) => e.getIsSelected)));
+
+                setState(() {
+                  _left -= 1;
+                });
+
+                if (_data.every((d) => d.getIsSelected == true)) {
+                  print("Won");
+                  Future.delayed(
+                    const Duration(milliseconds: 160), () {
+                      setState(() { _start = false; });
+                      Navigator.pushNamed(
+                          context,
+                           Routes.playAgain
+                      );
+                    });
+                }
+              }
+            }
+          }
+          setState(() {});
+        },
+        flipOnTouch: _wait ? false : !_data[index].getIsSelected,
+        direction: FlipDirection.HORIZONTAL,
+        front: Container(
+          margin: EdgeInsets.all(4.0),
+          child: Image.asset("assets/question.png"),
+        ),
+        back: getItem(index));
+  }
+
+  Widget initialTimer() {
+    return Text(
+      (_time > 0) ? '$_time' : 'Faltam: $_left',
+      style: Theme.of(context).textTheme.headline3,
+    );
+  }
+
   Widget getItem(int index) {
     return Container(
       margin: EdgeInsets.all(4.0),
@@ -34,10 +149,14 @@ class _MemoryGamePageState extends State<MemoryGamePage> {
   }
 
   startTimer() {
-    _timer = Timer.periodic(Duration(seconds: 1), (t) {
-      setState(() {
-        _time = _time - 1;
-      });
+    _timer = Timer.periodic(Duration(seconds: 1), (_) {
+      try {
+        setState(() {
+          _time = _time - 1;
+        });
+      } catch(_) {
+        return null;
+      }
     });
   }
 
@@ -54,118 +173,5 @@ class _MemoryGamePageState extends State<MemoryGamePage> {
         _timer.cancel();
       });
     });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    restart();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Text(
-                  (_time > 0) ? '$_time' : 'Faltam: $_left',
-                  style: Theme.of(context).textTheme.headline3,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: GridView.builder(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                  ),
-                  itemBuilder: (context, index) {
-                    if(_start) {
-                      return FlipCard(
-                          key: _cardStateKeys[index],
-                          onFlip: () {
-                            if (!_flip) {
-                              _flip = true;
-                              _previousIndex = index;
-                            } else {
-                              _flip = false;
-                              if (_previousIndex != index) {
-                                if (_data[_previousIndex].getImageAssetPath !=
-                                    _data[index].getImageAssetPath) {
-                                  _wait = true;
-
-                                  Future.delayed(
-                                      const Duration(milliseconds: 1500), () {
-                                    _cardStateKeys[_previousIndex]
-                                        .currentState
-                                        .toggleCard();
-                                    _previousIndex = index;
-                                    _cardStateKeys[_previousIndex]
-                                        .currentState
-                                        .toggleCard();
-
-                                    Future.delayed(
-                                        const Duration(milliseconds: 160),
-                                            () {
-                                          setState(() {
-                                            _wait = false;
-                                          });
-                                        });
-                                  });
-                                } else {
-                                  _data[_previousIndex].setIsSelected(true);
-                                  _data[index].setIsSelected(true);
-                                  print(List.of(_data.map((e) => e.getIsSelected)));
-
-                                  setState(() {
-                                    _left -= 1;
-                                  });
-                                  if (_data.every((d) => d.getIsSelected == true)) {
-                                    print("Won");
-                                    Future.delayed(
-                                        const Duration(milliseconds: 160),
-                                            () {
-                                          setState(() {
-                                            _start = false;
-
-                                            Navigator.pushNamed(context, Routes.playAgain);
-                                          });
-                                        });
-                                  }
-                                }
-                              }
-                            }
-                            setState(() {});
-                          },
-                          flipOnTouch: _wait ? false : !_data[index].getIsSelected,
-                          direction: FlipDirection.HORIZONTAL,
-                          front: Container(
-                            margin: EdgeInsets.all(4.0),
-                            child: Image.asset("assets/question.png"),
-                          ),
-                          back: getItem(index));
-                    } else {
-                      return getItem(index);
-                    }
-                  },
-                  itemCount: _data.length,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
   }
 }
