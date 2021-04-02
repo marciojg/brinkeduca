@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_app/data/cardModel.dart';
 
 List<String> _imagesSourceArray() {
@@ -14,6 +15,18 @@ List<String> _imagesSourceArray() {
 }
 
 List<CardModel> getPairsOfCards() {
+  final databaseReference = FirebaseDatabase.instance.reference();
+
+  databaseReference.child('card-exemplo-1').set({
+    'name': 'aaaaaaaaa2a',
+    'description': 'bbbbbbbbbbb'
+  });
+
+  databaseReference.once().then((DataSnapshot snapshot) {
+    print('Data : ${snapshot.value}');
+  });
+
+
   List<String> sourceArray = _imagesSourceArray();
   List<CardModel> pairOfCards = [];
 
