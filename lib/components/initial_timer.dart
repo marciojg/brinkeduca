@@ -36,15 +36,16 @@ class _InitialTimerState extends State<InitialTimer> {
   @override
   Widget build(BuildContext context) {
     var timeEnded = _time == 0;
+    var text = '$_time';
 
     if (timeEnded) {
       stopTimer();
-      return Container();
-    } else {
-      return Text(
-        '$_time',
-        style: Theme.of(context).textTheme.headline3,
-      );
+      text = '';
     }
+
+    return Text(
+      text,
+      style: Theme.of(context).textTheme.headline3,
+    );
   }
 }
