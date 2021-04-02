@@ -3,13 +3,13 @@ import 'package:flutter_app/data/cardModel.dart';
 List<String> _imagesSourceArray() {
   return [
     'assets/elephant.png',
-    'assets/fox.png',
-    'assets/hippo.png',
-    'assets/horse.png',
-    'assets/monkey.png',
-    'assets/panda.png',
-    'assets/parrot.png',
-    'assets/rabbit.png',
+    // 'assets/fox.png',
+    // 'assets/hippo.png',
+    // 'assets/horse.png',
+    // 'assets/monkey.png',
+    // 'assets/panda.png',
+    // 'assets/parrot.png',
+    // 'assets/rabbit.png',
   ];
 }
 
