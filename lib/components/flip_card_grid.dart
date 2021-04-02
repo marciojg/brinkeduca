@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/data/cardList.dart';
 import 'package:flutter_app/data/cardModel.dart';
 
+// ignore: must_be_immutable
 class FlipCardGrid extends StatefulWidget {
   final List<CardModel> _data = getPairsOfCards();
   bool startGame;
@@ -21,7 +22,7 @@ class _FlipCardGridState extends State<FlipCardGrid> {
   // ele não seja alterado a cada build.
   _FlipCardGridState(this._data);
 
-  Widget ItemCard(CardModel currentCard, bool startGame) {
+  Widget itemCard(CardModel currentCard, bool startGame) {
 
     bool isPair() {
       return lastCard.getImageAssetPath == currentCard.getImageAssetPath;
@@ -93,12 +94,13 @@ class _FlipCardGridState extends State<FlipCardGrid> {
         itemCount: _listCard.length,
         itemBuilder: (context, index) {
           final card = _listCard[index];
-          return ItemCard(card, _startGame);
+          return itemCard(card, _startGame);
         }
     );
   }
 }
 
+// ignore: must_be_immutable
 class Face extends StatelessWidget {
   CardModel card;
 

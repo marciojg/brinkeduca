@@ -5,8 +5,7 @@ import 'GameModel.dart';
 class GameList {
   static List<GameModel> getGames() {
     return [
-      GameModel('Jogo da Memória', Routes.game_1),
-      GameModel('Novo da memoria brabo', Routes.memoryGame)
+      GameModel('Jogo da Memória', Routes.memoryGame)
     ];
   }
 }
