@@ -15,8 +15,8 @@ class _MemoryGameState extends State<MemoryGame> {
   int _time = 5;
   Timer _timer;
 
-  bool wait() {
-    return _time > 0;
+  bool canStartGame() {
+    return _time == 0;
   }
 
   void startTimer() {
@@ -28,7 +28,7 @@ class _MemoryGameState extends State<MemoryGame> {
   }
 
   void stopTimer() {
-    if (!wait()) {
+    if (canStartGame()) {
       setState(() => _timer.cancel());
     }
   }
@@ -55,7 +55,7 @@ class _MemoryGameState extends State<MemoryGame> {
               ),
               Padding(
                 padding: const EdgeInsets.all(4.0),
-                child: FlipCardGrid(),
+                child: FlipCardGrid(startGame: canStartGame()),
               )
             ],
           ),
@@ -67,6 +67,9 @@ class _MemoryGameState extends State<MemoryGame> {
 
 class FlipCardGrid extends StatefulWidget {
   final List<CardModel> _data = getPairsOfCards();
+  bool startGame;
+
+  FlipCardGrid({ this.startGame });
 
   @override
   _FlipCardGridState createState() => _FlipCardGridState(_data);
@@ -75,11 +78,14 @@ class FlipCardGrid extends StatefulWidget {
 class _FlipCardGridState extends State<FlipCardGrid> {
   final List<CardModel> _data;
 
+  // Forçar o uso do _data recebido na instância de FlipCard, ou seja, que
+  // ele não seja alterado a cada build.
   _FlipCardGridState(this._data);
 
   @override
   Widget build(BuildContext context) {
     final _listCard = _data;
+    final _startGame = widget.startGame;
 
     return GridView.builder(
       shrinkWrap: true,
@@ -89,7 +95,8 @@ class _FlipCardGridState extends State<FlipCardGrid> {
       ),
       itemCount: _listCard.length,
       itemBuilder: (context, index) {
-        return ItemCard(card: _listCard[index]);
+        final card = _listCard[index];
+        return ItemCard(card, _startGame);
       }
     );
   }
@@ -98,8 +105,9 @@ class _FlipCardGridState extends State<FlipCardGrid> {
 // ignore: must_be_immutable
 class ItemCard extends StatelessWidget {
   CardModel card;
+  bool startGame;
 
-  ItemCard({ this.card });
+  ItemCard(this.card, this.startGame);
 
   @override
   Widget build(BuildContext context) {
@@ -107,8 +115,8 @@ class ItemCard extends StatelessWidget {
       key: card.getKey,
       onFlip: () {}, //temporario
       flipOnTouch: false, // mudar para ouvir o wait() e o metodo isSelect de card
-      front: Face(card: card), // mudar para ouvir o wait() e o metodo isSelect de card
-      back: Face(), // mudar para ouvir o wait() e o metodo isSelect de card
+      front: startGame ? Face() : Face(card: card), // mudar para ouvir o wait() e o metodo isSelect de card
+      back: !startGame ? Face() : Face(card: card), // mudar para ouvir o wait() e o metodo isSelect de card
     );
   }
 }
