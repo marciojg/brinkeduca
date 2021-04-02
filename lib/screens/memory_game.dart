@@ -114,9 +114,9 @@ class ItemCard extends StatelessWidget {
     return FlipCard(
       key: card.getKey,
       onFlip: () {}, //temporario
-      flipOnTouch: false, // mudar para ouvir o wait() e o metodo isSelect de card
-      front: startGame ? Face() : Face(card: card), // mudar para ouvir o wait() e o metodo isSelect de card
-      back: !startGame ? Face() : Face(card: card), // mudar para ouvir o wait() e o metodo isSelect de card
+      flipOnTouch: startGame ? !card.getIsSelected : false,
+      front: startGame ? Face() : Face(card: card),
+      back: !startGame ? Face() : Face(card: card),
     );
   }
 }
