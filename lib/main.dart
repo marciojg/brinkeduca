@@ -1,11 +1,15 @@
-// import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+
 import 'package:flutter_app/core/routes.dart';
 import 'package:flutter_app/screens/memory_game.dart';
 import 'package:flutter_app/screens/menuPage.dart';
 import 'package:flutter_app/screens/playAgainPage.dart';
 
-void main() {
+Future<void> main() async  {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   runApp(MyApp());
 }
 
