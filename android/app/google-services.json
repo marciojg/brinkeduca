@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "217453127670",
+    "project_id": "brinkeduca-2deb5",
+    "storage_bucket": "brinkeduca-2deb5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:217453127670:android:fbb6de5bc214cb00b4c9d7",
+        "android_client_info": {
+          "package_name": "com.flutter_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "217453127670-3of9a0p4nq50dshlsmdqlstjg78qjj5n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYkrPt7RAr0uIflKsamoTsGlfu2TGfh90"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "217453127670-3of9a0p4nq50dshlsmdqlstjg78qjj5n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
