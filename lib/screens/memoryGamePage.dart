@@ -6,14 +6,11 @@ import 'package:flutter_app/data/cardModel.dart';
 import 'dart:async';
 
 class MemoryGamePage extends StatefulWidget {
-  MemoryGamePage();
-
   @override
   _MemoryGamePageState createState() => _MemoryGamePageState();
 }
 
 class _MemoryGamePageState extends State<MemoryGamePage> {
-  _MemoryGamePageState();
 
   int _previousIndex = -1;
   bool _flip = false;
