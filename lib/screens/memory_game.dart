@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/components/flip_card_grid.dart';
 import 'package:flutter_app/components/initial_timer.dart';
-import 'package:flutter_app/data/cardList.dart';
-import 'package:flutter_app/data/cardModel.dart';
+import 'package:flutter_app/data/card_list.dart';
+import 'package:flutter_app/data/card_model.dart';
 
 const int TIME_TO_WAIT = 5;
 

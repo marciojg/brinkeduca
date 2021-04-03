@@ -1,6 +1,6 @@
 import 'package:flutter_app/core/routes.dart';
 
-import 'GameModel.dart';
+import 'game_model.dart';
 
 class GameList {
   static List<GameModel> getGames() {

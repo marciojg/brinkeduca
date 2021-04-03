@@ -1,6 +1,6 @@
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/data/cardModel.dart';
+import 'package:flutter_app/data/card_model.dart';
 
 // ignore: must_be_immutable
 class FlipCardGrid extends StatefulWidget {
