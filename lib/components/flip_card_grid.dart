@@ -1,14 +1,13 @@
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/data/cardList.dart';
 import 'package:flutter_app/data/cardModel.dart';
 
 // ignore: must_be_immutable
 class FlipCardGrid extends StatefulWidget {
-  final List<CardModel> _data = getPairsOfCards();
   bool startGame;
+  List<CardModel> _data;
 
-  FlipCardGrid({ this.startGame });
+  FlipCardGrid(this._data, { this.startGame });
 
   @override
   _FlipCardGridState createState() => _FlipCardGridState(_data);
