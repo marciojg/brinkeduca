@@ -4,7 +4,6 @@ List<String> _imagesSourceArray() {
   return [
     'assets/elephant.png',
     'assets/fox.png',
-    'assets/hippo.png',
     'assets/horse.png',
     'assets/monkey.png',
     'assets/panda.png',

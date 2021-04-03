@@ -4,6 +4,7 @@ import 'package:flutter_app/data/gameList.dart';
 class MenuPage extends StatelessWidget {
   final _listGames = GameList.getGames();
 
+  // TODO: Refatorar este widget que esta confuso e nao aceita mais de um item no menu
   @override
   Widget build(BuildContext context) {
     return Scaffold(
