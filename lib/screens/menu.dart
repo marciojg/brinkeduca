@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/components/menu_list.dart';
 
-class MenuPage extends StatefulWidget {
+class Menu extends StatefulWidget {
   @override
-  _MenuPageState createState() => _MenuPageState();
+  _MenuState createState() => _MenuState();
 }
 
-class _MenuPageState extends State<MenuPage> {
+class _MenuState extends State<Menu> {
 
   @override
   Widget build(BuildContext context) {

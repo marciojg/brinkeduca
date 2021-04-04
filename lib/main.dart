@@ -3,7 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 
 import 'package:flutter_app/core/routes.dart';
 import 'package:flutter_app/screens/memory_game.dart';
-import 'package:flutter_app/screens/menu_page.dart';
+import 'package:flutter_app/screens/menu.dart';
 
 Future<void> main() async  {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         initialRoute: Routes.menu,
         routes: {
-          Routes.menu: (context) => MenuPage(),
+          Routes.menu: (context) => Menu(),
           Routes.memoryGame: (context) => MemoryGame(),
         }
     );
