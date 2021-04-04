@@ -49,6 +49,9 @@ class _MemoryGameState extends State<MemoryGame> {
     stopTimer();
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text('BrinkEduca'),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
