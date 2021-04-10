@@ -1,10 +1,6 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_app/components/flip_card_grid.dart';
+import 'package:flutter_app/components/flip_card_grid_builder.dart';
 import 'package:flutter_app/components/initial_timer.dart';
-import 'package:flutter_app/data/card_list.dart';
-import 'package:flutter_app/data/card_model.dart';
 
 const int TIME_TO_WAIT = 5;
 
@@ -14,8 +10,6 @@ class MemoryGame extends StatefulWidget {
 }
 
 class _MemoryGameState extends State<MemoryGame> {
-  final List<CardModel> _data = getPairsOfCards();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +26,7 @@ class _MemoryGameState extends State<MemoryGame> {
               ),
               Padding(
                 padding: const EdgeInsets.all(4.0),
-                child: FlipCardGrid(_data, time: TIME_TO_WAIT),
+                child: FlipCardGridBuilder(TIME_TO_WAIT),
               )
             ],
           ),

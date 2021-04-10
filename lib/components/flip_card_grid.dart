@@ -7,40 +7,43 @@ import 'package:flutter_app/data/card_model.dart';
 
 class FlipCardGrid extends StatefulWidget {
   TimeToWait timeToWait;
+  int time;
   List<CardModel> _data;
 
-  FlipCardGrid(this._data, { time }) {
+  FlipCardGrid(this._data, { this.time }) {
     this.timeToWait = TimeToWait(time);
   }
 
   @override
-  _FlipCardGridState createState() => _FlipCardGridState(_data);
+  _FlipCardGridState createState() => _FlipCardGridState(_data, timeToWait, time);
 }
 
 class _FlipCardGridState extends State<FlipCardGrid> {
   final List<CardModel> _data;
+  final TimeToWait timeToWait;
+  final int time;
+
   CardModel lastCard;
 
-  // Forçar o uso do _data recebido na instância de FlipCard, ou seja, que
+  // Forçar o uso do _data e timeToWait recebido na instância de FlipCard, ou seja, que
   // ele não seja alterado a cada build.
-  _FlipCardGridState(this._data);
-
+  _FlipCardGridState(this._data, this.timeToWait, this.time);
 
   void minusTime() {
     if (this.mounted) {
-      setState(() => widget.timeToWait.time--);
+      setState(() => timeToWait.time--);
     }
   }
 
   void cancelTimer() {
-    setState(() => widget.timeToWait.timer.cancel());
+    setState(() => timeToWait.timer.cancel());
   }
 
   @override
   void initState() {
     super.initState();
 
-    widget.timeToWait.startTimer(minusTime);
+    timeToWait.startTimer(minusTime);
   }
 
   Widget itemCard(CardModel currentCard, bool startGame) {
@@ -83,9 +86,9 @@ class _FlipCardGridState extends State<FlipCardGrid> {
           }
         }
       },
-      flipOnTouch: widget.timeToWait.canStartGame() ? !currentCard.getIsSelected : false,
-      front: widget.timeToWait.canStartGame() ? Face() : Face(card: currentCard),
-      back: !widget.timeToWait.canStartGame() ? Face() : Face(card: currentCard),
+      flipOnTouch: timeToWait.canStartGame() ? !currentCard.getIsSelected : false,
+      front: timeToWait.canStartGame() ? Face() : Face(card: currentCard),
+      back: !timeToWait.canStartGame() ? Face() : Face(card: currentCard),
     );
   }
 
@@ -103,10 +106,10 @@ class _FlipCardGridState extends State<FlipCardGrid> {
   Widget build(BuildContext context) {
     final _listCard = _data;
 
-    if (!widget.timeToWait.canStartGame()) {
-      Timer(Duration(seconds: 5), () {
+    if (!timeToWait.canStartGame()) {
+      Timer(Duration(seconds: time), () {
         if (this.mounted) {
-          widget.timeToWait.stopTimer(cancelTimer);
+          timeToWait.stopTimer(cancelTimer);
         }
       });
     }
@@ -122,7 +125,7 @@ class _FlipCardGridState extends State<FlipCardGrid> {
         itemCount: _listCard.length,
         itemBuilder: (context, index) {
           final card = _listCard[index];
-          return itemCard(card, widget.timeToWait.canStartGame());
+          return itemCard(card, timeToWait.canStartGame());
         });
   }
 }

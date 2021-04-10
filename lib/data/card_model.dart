@@ -1,30 +1,38 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 
 class CardModel {
-  bool _isSelected;
-  GlobalKey<FlipCardState> _key;
-  final String _imageAssetPath;
+  bool selected;
+  GlobalKey<FlipCardState> key;
+  String image;
+  String name;
 
   CardModel(
-    this._imageAssetPath,
-    [this._isSelected = false]) {
-    this._key = GlobalKey<FlipCardState>();
+    this.image,
+    [this.selected = false]) {
+    this.key = GlobalKey<FlipCardState>();
   }
 
+  CardModel.fromSnapshot(QueryDocumentSnapshot snapshot)
+      : key = GlobalKey<FlipCardState>(),
+        name = snapshot.data()['name'],
+        image = snapshot.data()['image'],
+        selected = false;
+
   GlobalKey<FlipCardState>get getKey {
-    return _key;
+    return key;
   }
 
   String get getImageAssetPath {
-    return _imageAssetPath;
+    return image;
   }
 
   void setIsSelected(bool selected) {
-    _isSelected = selected;
+    selected = selected;
   }
 
   bool get getIsSelected {
-    return _isSelected;
+    return selected;
   }
 }
