@@ -2,14 +2,16 @@ import 'dart:async';
 
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/components/time_to_wait.dart';
 import 'package:flutter_app/data/card_model.dart';
 
 class FlipCardGrid extends StatefulWidget {
-  Timer timer;
-  int time;
+  TimeToWait timeToWait;
   List<CardModel> _data;
 
-  FlipCardGrid(this._data, {this.time});
+  FlipCardGrid(this._data, { time }) {
+    this.timeToWait = TimeToWait(time);
+  }
 
   @override
   _FlipCardGridState createState() => _FlipCardGridState(_data);
@@ -23,29 +25,22 @@ class _FlipCardGridState extends State<FlipCardGrid> {
   // ele não seja alterado a cada build.
   _FlipCardGridState(this._data);
 
-  bool canStartGame() {
-    return widget.time == 0;
-  }
 
-  void startTimer() {
-    widget.timer = Timer.periodic(Duration(seconds: 1), (_) {
-      if (this.mounted) {
-        setState(() => widget.time--);
-      }
-    });
-  }
-
-  void stopTimer() {
-    if (canStartGame()) {
-      setState(() => widget.timer.cancel());
+  void minusTime() {
+    if (this.mounted) {
+      setState(() => widget.timeToWait.time--);
     }
+  }
+
+  void cancelTimer() {
+    setState(() => widget.timeToWait.timer.cancel());
   }
 
   @override
   void initState() {
     super.initState();
 
-    startTimer();
+    widget.timeToWait.startTimer(minusTime);
   }
 
   Widget itemCard(CardModel currentCard, bool startGame) {
@@ -88,9 +83,9 @@ class _FlipCardGridState extends State<FlipCardGrid> {
           }
         }
       },
-      flipOnTouch: canStartGame() ? !currentCard.getIsSelected : false,
-      front: canStartGame() ? Face() : Face(card: currentCard),
-      back: !canStartGame() ? Face() : Face(card: currentCard),
+      flipOnTouch: widget.timeToWait.canStartGame() ? !currentCard.getIsSelected : false,
+      front: widget.timeToWait.canStartGame() ? Face() : Face(card: currentCard),
+      back: !widget.timeToWait.canStartGame() ? Face() : Face(card: currentCard),
     );
   }
 
@@ -106,14 +101,12 @@ class _FlipCardGridState extends State<FlipCardGrid> {
 
   @override
   Widget build(BuildContext context) {
-    stopTimer();
-
     final _listCard = _data;
 
-    if (!canStartGame()) {
+    if (!widget.timeToWait.canStartGame()) {
       Timer(Duration(seconds: 5), () {
         if (this.mounted) {
-          stopTimer();
+          widget.timeToWait.stopTimer(cancelTimer);
         }
       });
     }
@@ -129,7 +122,7 @@ class _FlipCardGridState extends State<FlipCardGrid> {
         itemCount: _listCard.length,
         itemBuilder: (context, index) {
           final card = _listCard[index];
-          return itemCard(card, canStartGame());
+          return itemCard(card, widget.timeToWait.canStartGame());
         });
   }
 }
