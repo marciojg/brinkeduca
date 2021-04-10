@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/components/menu_list.dart';
+import 'package:flutter_app/components/menu_builder.dart';
 
 class Menu extends StatefulWidget {
   @override
@@ -20,7 +20,7 @@ class _MenuState extends State<Menu> {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(4.0),
-                child: MenuList(),
+                child: MenuBuilder(),
               ),
             ],
           ),
