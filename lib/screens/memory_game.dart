@@ -16,38 +16,8 @@ class MemoryGame extends StatefulWidget {
 class _MemoryGameState extends State<MemoryGame> {
   final List<CardModel> _data = getPairsOfCards();
 
-  int _time = TIME_TO_WAIT;
-  Timer _timer;
-
-  bool canStartGame() {
-    return _time == 0;
-  }
-
-  void startTimer() {
-    _timer = Timer.periodic(Duration(seconds: 1), (_) {
-      if (this.mounted) {
-        setState(() => _time--);
-      }
-    });
-  }
-
-  void stopTimer() {
-    if (canStartGame()) {
-      setState(() => _timer.cancel());
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    startTimer();
-  }
-
   @override
   Widget build(BuildContext context) {
-    stopTimer();
-
     return Scaffold(
       appBar: AppBar(
         title: Text('BrinkEduca'),
@@ -58,11 +28,11 @@ class _MemoryGameState extends State<MemoryGame> {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: InitialTimer(_time),
+                child: InitialTimer(TIME_TO_WAIT),
               ),
               Padding(
                 padding: const EdgeInsets.all(4.0),
-                child: FlipCardGrid(_data, startGame: canStartGame()),
+                child: FlipCardGrid(_data, time: TIME_TO_WAIT),
               )
             ],
           ),
