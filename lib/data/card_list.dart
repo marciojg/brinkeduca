@@ -28,12 +28,12 @@ class CardList {
     return pairOfCards;
   }
 
-  static Future<List<CardModel>> getPairsOfCardsOnline() async {
+  static Future<List<CardModel>> getPairsOfCardsOnline(String firebaseKey) async {
     List<CardModel> pairOfCards = [];
     QuerySnapshot querySnapshot = await FirebaseConnection
         .instance
         .collection('games')
-        .doc('Gp2M9CwE588TKQHJUWvs')
+        .doc(firebaseKey)
         .collection('cards')
         .get();
 

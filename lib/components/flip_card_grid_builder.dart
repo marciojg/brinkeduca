@@ -5,25 +5,27 @@ import 'package:flutter_app/data/card_list.dart';
 class FlipCardGridBuilder extends StatefulWidget {
   final bool onlineApp = true;
   int time;
+  String firebaseKey;
 
-  FlipCardGridBuilder(this.time);
+  FlipCardGridBuilder(this.time, { this.firebaseKey });
 
   @override
   _FlipCardGridBuilderState createState() =>
-      _FlipCardGridBuilderState(this.time);
+      _FlipCardGridBuilderState(this.time, firebaseKey: this.firebaseKey);
 }
 
 class _FlipCardGridBuilderState extends State<FlipCardGridBuilder> {
   int time;
+  String firebaseKey;
 
   // Forçar que o time não mude seu valor quando o widget for rebuildado
-  _FlipCardGridBuilderState(this.time);
+  _FlipCardGridBuilderState(this.time, { this.firebaseKey });
 
   @override
   Widget build(BuildContext context) {
     if (widget.onlineApp) {
       return FutureBuilder(
-        future: CardList.getPairsOfCardsOnline(),
+        future: CardList.getPairsOfCardsOnline(firebaseKey),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.waiting:

@@ -12,6 +12,8 @@ class MemoryGame extends StatefulWidget {
 class _MemoryGameState extends State<MemoryGame> {
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context).settings.arguments as Map<String, dynamic>;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('BrinkEduca'),
@@ -26,7 +28,10 @@ class _MemoryGameState extends State<MemoryGame> {
               ),
               Padding(
                 padding: const EdgeInsets.all(4.0),
-                child: FlipCardGridBuilder(TIME_TO_WAIT),
+                child: FlipCardGridBuilder(
+                  TIME_TO_WAIT,
+                  firebaseKey: args['firebaseKey'],
+                ),
               )
             ],
           ),

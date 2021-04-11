@@ -20,11 +20,16 @@ class _MenuItemsState extends State<MenuItems> {
         crossAxisCount: 2,
       ),
       itemBuilder: (context, index) {
+        GameModel menuItem = widget.listGames[index];
         return Padding(
           padding: const EdgeInsets.all(20.0),
           child: GestureDetector(
             onTap: () {
-              Navigator.pushNamed(context, widget.listGames[index].page);
+              Navigator.pushNamed(
+                context,
+                menuItem.page,
+                arguments: {'firebaseKey': menuItem.id },
+              );
             },
             child: Center(
               child: Column(
@@ -49,7 +54,7 @@ class _MenuItemsState extends State<MenuItems> {
                     child: Container(
                       alignment: Alignment.bottomCenter,
                       child: Text(
-                        widget.listGames[index].name,
+                        menuItem.name,
                         textAlign: TextAlign.center,
                       ),
                     ),

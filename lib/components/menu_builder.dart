@@ -19,12 +19,19 @@ class _MenuBuilderState extends State<MenuBuilder> {
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.waiting:
-              return new Text('loading...');
+              return Center(
+                child: Text('loading...'),
+              );
             default:
               if (snapshot.hasError)
-                return new Text('Error: ${snapshot.error}');
+                return Center(
+                    child: Text(
+                  'Error: ${snapshot.error}',
+                ));
               else
-                return MenuItems(snapshot.data);
+                return MenuItems(
+                  snapshot.data,
+                );
           }
         },
       );
