@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/components/menu_builder.dart';
+import 'package:flutter_app/core/session.dart';
 
 class Menu extends StatefulWidget {
   @override
@@ -12,7 +13,7 @@ class _MenuState extends State<Menu> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('BrinkEduca'),
+        title: Text(Session.shared.nameApp),
       ),
       body: SafeArea(
         child: SingleChildScrollView(

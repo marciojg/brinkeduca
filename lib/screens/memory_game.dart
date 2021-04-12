@@ -16,7 +16,7 @@ class _MemoryGameState extends State<MemoryGame> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('BrinkEduca'),
+        title: Text(Session.shared.nameApp),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
