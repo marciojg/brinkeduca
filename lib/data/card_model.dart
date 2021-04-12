@@ -25,14 +25,14 @@ class CardModel {
   }
 
   String get getImageAssetPath {
-    return image;
+    return this.image;
   }
 
   void setIsSelected(bool selected) {
-    selected = selected;
+    this.selected = selected;
   }
 
   bool get getIsSelected {
-    return selected;
+    return this.selected;
   }
 }
