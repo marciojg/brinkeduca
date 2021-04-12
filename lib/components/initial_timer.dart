@@ -1,43 +1,52 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/components/time_to_wait.dart';
 
 class InitialTimer extends StatefulWidget {
-  TimeToWait timeToWait;
+  Timer timer;
+  int time;
 
-  InitialTimer(time) {
-    this.timeToWait = TimeToWait(time);
-  }
+  InitialTimer(this.time);
 
   @override
   _InitialTimerState createState() => _InitialTimerState();
 }
 
 class _InitialTimerState extends State<InitialTimer> {
-  void minusTime() {
-    if (this.mounted) {
-      setState(() => widget.timeToWait.time--);
-    }
+  bool canStartGame() {
+    return widget.time == 0;
   }
 
-  void cancelTimer() {
-    setState(() => widget.timeToWait.timer.cancel());
+  void startTimer() {
+    widget.timer = Timer.periodic(Duration(seconds: 1), (_) {
+      if (this.mounted) {
+        setState(() => widget.time--);
+      }
+    });
+  }
+
+  void stopTimer() {
+    if (canStartGame()) {
+      setState(() {
+        widget.timer.cancel();
+      });
+    }
   }
 
   @override
   void initState() {
     super.initState();
 
-    widget.timeToWait.startTimer(minusTime);
+    startTimer();
   }
 
   @override
   Widget build(BuildContext context) {
-    widget.timeToWait.stopTimer(cancelTimer);
+    stopTimer();
 
-    return widget.timeToWait.canStartGame() ?
+    return canStartGame() ?
       Container() :
       Text(
-        '${widget.timeToWait.time}',
+        '${widget.time}',
         style: Theme.of(context).textTheme.headline3,
       );
     }
