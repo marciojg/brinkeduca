@@ -4,6 +4,8 @@ import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/data/card_model.dart';
 
+import 'face_card.dart';
+
 class FlipCardGrid extends StatefulWidget {
   List<CardModel> _data;
   bool startGame;
@@ -26,9 +28,6 @@ class _FlipCardGridState extends State<FlipCardGrid> {
 
   Widget itemCard(CardModel currentCard, bool startGame) {
     bool isPair() {
-      var teste = lastCard.getImageAssetPath == currentCard.getImageAssetPath;
-      print(teste);
-
       return lastCard.getImageAssetPath == currentCard.getImageAssetPath;
     }
 
@@ -68,8 +67,8 @@ class _FlipCardGridState extends State<FlipCardGrid> {
         }
       },
       flipOnTouch: widget.startGame ? !currentCard.getIsSelected : false,
-      front: widget.startGame ? Face() : Face(card: currentCard),
-      back: !widget.startGame ? Face() : Face(card: currentCard),
+      front: widget.startGame ? FaceCard() : FaceCard(card: currentCard, opacity: true),
+      back: !widget.startGame ? FaceCard() : FaceCard(card: currentCard),
     );
   }
 
@@ -102,18 +101,3 @@ class _FlipCardGridState extends State<FlipCardGrid> {
   }
 }
 
-// ignore: must_be_immutable
-class Face extends StatelessWidget {
-  CardModel card;
-
-  Face({this.card});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(4.0),
-      child: Image.asset(
-          card != null ? card.getImageAssetPath : 'assets/question.png'),
-    );
-  }
-}
