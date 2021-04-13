@@ -8,4 +8,13 @@ class Session {
 
   String nameApp = 'BrinkEduca';
   bool onlineApp;
+  List<String> imagesSourceArray = [
+    'assets/elephant.png',
+    'assets/rabbit.png',
+    'assets/fox.png',
+    'assets/panda.png',
+    'assets/parrot.png',
+    'assets/monkey.png',
+    'assets/horse.png',
+  ];
 }

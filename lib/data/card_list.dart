@@ -1,22 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_app/core/session.dart';
 import 'package:flutter_app/data/card_model.dart';
 import 'package:flutter_app/firebase/firebase_connection.dart';
 
 class CardList {
-  static List<String> _imagesSourceArray() {
-    return [
-      'assets/elephant.png',
-      'assets/rabbit.png',
-      'assets/fox.png',
-      'assets/panda.png',
-      'assets/parrot.png',
-      'assets/monkey.png',
-      'assets/horse.png',
-    ];
-  }
 
   static List<CardModel> getPairsOfCardsOffline() {
-    List<String> sourceArray = _imagesSourceArray();
+    List<String> sourceArray = Session.shared.imagesSourceArray;
     List<CardModel> pairOfCards = [];
 
     sourceArray.forEach((pathname) {
