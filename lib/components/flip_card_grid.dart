@@ -2,52 +2,33 @@ import 'dart:async';
 
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/components/time_to_wait.dart';
 import 'package:flutter_app/data/card_model.dart';
 
 class FlipCardGrid extends StatefulWidget {
-  TimeToWait timeToWait;
-  int time;
   List<CardModel> _data;
+  bool startGame;
 
-  FlipCardGrid(this._data, { this.time }) {
-    this.timeToWait = TimeToWait(time);
-  }
+  FlipCardGrid(this._data, {this.startGame});
 
   @override
-  _FlipCardGridState createState() => _FlipCardGridState(_data, timeToWait, time);
+  _FlipCardGridState createState() => _FlipCardGridState(_data);
 }
 
 class _FlipCardGridState extends State<FlipCardGrid> {
   final List<CardModel> _data;
-  final TimeToWait timeToWait;
-  final int time;
 
   CardModel lastCard;
 
-  // Forçar o uso do _data e timeToWait recebido na instância de FlipCard, ou seja, que
+  // Forçar o uso do _data recebido na instância de FlipCard, ou seja, que
   // ele não seja alterado a cada build.
-  _FlipCardGridState(this._data, this.timeToWait, this.time);
+  _FlipCardGridState(this._data);
 
-  void minusTime() {
-    if (this.mounted) {
-      setState(() => timeToWait.time--);
-    }
-  }
-
-  void cancelTimer() {
-    setState(() => timeToWait.timer.cancel());
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    timeToWait.startTimer(minusTime);
-  }
 
   Widget itemCard(CardModel currentCard, bool startGame) {
     bool isPair() {
+      var teste = lastCard.getImageAssetPath == currentCard.getImageAssetPath;
+      print(teste);
+
       return lastCard.getImageAssetPath == currentCard.getImageAssetPath;
     }
 
@@ -86,16 +67,14 @@ class _FlipCardGridState extends State<FlipCardGrid> {
           }
         }
       },
-      flipOnTouch: timeToWait.canStartGame() ? !currentCard.getIsSelected : false,
-      front: timeToWait.canStartGame() ? Face() : Face(card: currentCard),
-      back: !timeToWait.canStartGame() ? Face() : Face(card: currentCard),
+      flipOnTouch: widget.startGame ? !currentCard.getIsSelected : false,
+      front: widget.startGame ? Face() : Face(card: currentCard),
+      back: !widget.startGame ? Face() : Face(card: currentCard),
     );
   }
 
   void finishGame() {
     if (_data.every((d) => d.getIsSelected == true)) {
-      print("Won");
-
       Future.delayed(const Duration(milliseconds: 160), () {
         Navigator.pop(context);
       });
@@ -105,14 +84,7 @@ class _FlipCardGridState extends State<FlipCardGrid> {
   @override
   Widget build(BuildContext context) {
     final _listCard = _data;
-
-    if (!timeToWait.canStartGame()) {
-      Timer(Duration(seconds: time), () {
-        if (this.mounted) {
-          timeToWait.stopTimer(cancelTimer);
-        }
-      });
-    }
+    final _startGame = widget.startGame;
 
     finishGame();
 
@@ -125,7 +97,7 @@ class _FlipCardGridState extends State<FlipCardGrid> {
         itemCount: _listCard.length,
         itemBuilder: (context, index) {
           final card = _listCard[index];
-          return itemCard(card, timeToWait.canStartGame());
+          return itemCard(card, _startGame);
         });
   }
 }

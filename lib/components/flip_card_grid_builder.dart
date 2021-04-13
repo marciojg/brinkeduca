@@ -1,31 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/components/flip_card_grid.dart';
+import 'package:flutter_app/core/session.dart';
 import 'package:flutter_app/data/card_list.dart';
 
 class FlipCardGridBuilder extends StatefulWidget {
-  final bool onlineApp = true;
-  int time;
   String firebaseKey;
+  bool startGame;
+  dynamic data;
 
-  FlipCardGridBuilder(this.time, { this.firebaseKey });
+  FlipCardGridBuilder({this.startGame, this.firebaseKey}) {
+    if (Session.shared.onlineApp) {
+      this.data = CardList.getPairsOfCardsOnline(firebaseKey);
+    } else {
+      this.data = CardList.getPairsOfCardsOffline();
+    }
+  }
 
   @override
-  _FlipCardGridBuilderState createState() =>
-      _FlipCardGridBuilderState(this.time, firebaseKey: this.firebaseKey);
+  _FlipCardGridBuilderState createState() => _FlipCardGridBuilderState(data);
 }
 
 class _FlipCardGridBuilderState extends State<FlipCardGridBuilder> {
-  int time;
-  String firebaseKey;
+  final dynamic data;
 
-  // Forçar que o time não mude seu valor quando o widget for rebuildado
-  _FlipCardGridBuilderState(this.time, { this.firebaseKey });
+  // Recebendo data na inicialização do widget para o mesmo use o mesmo
+  // data em cada build
+  _FlipCardGridBuilderState(this.data);
 
   @override
   Widget build(BuildContext context) {
-    if (widget.onlineApp) {
+    if (Session.shared.onlineApp) {
       return FutureBuilder(
-        future: CardList.getPairsOfCardsOnline(firebaseKey),
+        future: data,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.waiting:
@@ -35,21 +41,22 @@ class _FlipCardGridBuilderState extends State<FlipCardGridBuilder> {
             default:
               if (snapshot.hasError)
                 return new Center(
-                    child: Text(
-                  'Error: ${snapshot.error}',
-                ));
+                  child: Text(
+                    'Error: ${snapshot.error}',
+                  ),
+                );
               else
                 return FlipCardGrid(
                   snapshot.data,
-                  time: widget.time,
+                  startGame: widget.startGame,
                 );
           }
         },
       );
     } else {
       return FlipCardGrid(
-        CardList.getPairsOfCardsOffline(),
-        time: widget.time,
+        data,
+        startGame: widget.startGame,
       );
     }
   }
