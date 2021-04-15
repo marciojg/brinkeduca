@@ -1,5 +1,6 @@
 class Routes {
-  static get menu => '/';
+  static get auth => '/';
+  static get menu => '/menu';
   static get memoryGame => '/memory-game';
   static get playAgain => '/play-again';
 }

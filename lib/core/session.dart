@@ -6,6 +6,7 @@ class Session {
 
   static Session get shared => _singleton;
 
+  String authBaseAddress = 'https://brinkeduca-api.herokuapp.com/students/auth';
   String nameApp = 'BrinkEduca';
   bool onlineApp;
   List<String> imagesSourceArray = [
