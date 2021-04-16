@@ -8,6 +8,7 @@ class Session {
 
   String authBaseAddress = 'https://brinkeduca-api.herokuapp.com/students/auth';
   String nameApp = 'BrinkEduca';
+  String studentName;
   bool onlineApp;
   List<String> imagesSourceArray = [
     'assets/elephant.png',
