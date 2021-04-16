@@ -1,3 +1,4 @@
+import 'package:brinkeduca/screens/mode_app.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -11,8 +12,6 @@ Future<void> main() async  {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  Session.shared.onlineApp = true;
-
   runApp(BrinkEduca());
 }
 
@@ -25,6 +24,7 @@ class BrinkEduca extends StatelessWidget {
         initialRoute: Routes.auth,
         routes: {
           Routes.auth: (context) => Auth(),
+          Routes.modeApp: (context) => ModeApp(),
           Routes.menu: (context) => Menu(),
           Routes.memoryGame: (context) => MemoryGame(),
         }

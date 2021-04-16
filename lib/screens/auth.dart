@@ -50,7 +50,7 @@ class Auth extends StatelessWidget {
 
                           if (result) {
                             Navigator.of(context)
-                                .pushReplacementNamed(Routes.menu);
+                                .pushReplacementNamed(Routes.modeApp);
                           } else {
                             print('Deu ruim');
                             Dialogs.showErrorDialog(
