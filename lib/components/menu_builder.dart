@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/core/session.dart';
-import 'package:flutter_app/data/game_list.dart';
+import 'package:brinkeduca/core/session.dart';
+import 'package:brinkeduca/data/game_list.dart';
 
 import 'menu_items.dart';
 

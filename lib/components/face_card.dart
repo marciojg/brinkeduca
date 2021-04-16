@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/data/card_model.dart';
+import 'package:brinkeduca/data/card_model.dart';
 
 class FaceCard extends StatelessWidget {
   CardModel card;

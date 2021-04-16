@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/data/game_model.dart';
+import 'package:brinkeduca/data/game_model.dart';
 
 class MenuItems extends StatefulWidget {
   List<GameModel> listGames;

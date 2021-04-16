@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-import 'package:flutter_app/core/routes.dart';
-import 'package:flutter_app/core/session.dart';
-import 'package:flutter_app/screens/auth.dart';
-import 'package:flutter_app/screens/memory_game.dart';
-import 'package:flutter_app/screens/menu.dart';
+import 'package:brinkeduca/core/routes.dart';
+import 'package:brinkeduca/core/session.dart';
+import 'package:brinkeduca/screens/auth.dart';
+import 'package:brinkeduca/screens/memory_game.dart';
+import 'package:brinkeduca/screens/menu.dart';
 
 Future<void> main() async  {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,10 +13,10 @@ Future<void> main() async  {
 
   Session.shared.onlineApp = true;
 
-  runApp(MyApp());
+  runApp(BrinkEduca());
 }
 
-class MyApp extends StatelessWidget {
+class BrinkEduca extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

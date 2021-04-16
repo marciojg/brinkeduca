@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_app/core/session.dart';
-import 'package:flutter_app/data/card_model.dart';
-import 'package:flutter_app/firebase/firebase_connection.dart';
+import 'package:brinkeduca/core/session.dart';
+import 'package:brinkeduca/data/card_model.dart';
+import 'package:brinkeduca/firebase/firebase_connection.dart';
 
 class CardList {
 

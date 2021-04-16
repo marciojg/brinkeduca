@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_app/core/routes.dart';
-import 'package:flutter_app/firebase/firebase_connection.dart';
+import 'package:brinkeduca/core/routes.dart';
+import 'package:brinkeduca/firebase/firebase_connection.dart';
 
 import 'game_model.dart';
 

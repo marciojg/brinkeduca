@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/data/card_model.dart';
+import 'package:brinkeduca/data/card_model.dart';
 
 import 'face_card.dart';
 

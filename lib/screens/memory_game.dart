@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/components/flip_card_grid_builder.dart';
-import 'package:flutter_app/components/start_game.dart';
-import 'package:flutter_app/core/session.dart';
+import 'package:brinkeduca/components/flip_card_grid_builder.dart';
+import 'package:brinkeduca/components/start_game.dart';
+import 'package:brinkeduca/core/session.dart';
 
 class MemoryGame extends StatefulWidget {
   @override

@@ -1,4 +1,4 @@
-import 'package:flutter_app/firebase/firebase_connection.dart';
+import 'package:brinkeduca/firebase/firebase_connection.dart';
 
 class Seeder {
   static call() {

@@ -1,4 +1,4 @@
-package com.flutter_app;
+package com.brinkeduca;
 
 import io.flutter.embedding.android.FlutterActivity;
 

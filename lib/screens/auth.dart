@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_app/components/dialogs.dart';
-import 'package:flutter_app/core/routes.dart';
-import 'package:flutter_app/core/session.dart';
+import 'package:brinkeduca/components/dialogs.dart';
+import 'package:brinkeduca/core/routes.dart';
+import 'package:brinkeduca/core/session.dart';
 
 class Auth extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
