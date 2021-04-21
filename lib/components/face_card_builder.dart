@@ -1,8 +1,7 @@
 import 'package:brinkeduca/core/session.dart';
 import 'package:brinkeduca/data/card_model.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-
-import 'face_card.dart';
 
 class FaceCardBuilder extends StatelessWidget {
   CardModel card;
@@ -40,14 +39,39 @@ class FaceCardBuilder extends StatelessWidget {
                   ),
                 );
               else
-                return FaceCard(snapshot.data, opacity: opacity);
+                return CachedNetworkImage(
+                  imageUrl: snapshot.data,
+                  imageBuilder: (context, imageProvider) => Container(
+                    margin: EdgeInsets.all(4.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(70),
+                      image: DecorationImage(
+                        image: imageProvider,
+                        colorFilter: ColorFilter.mode(
+                          Colors.white.withOpacity(opacity ? 0.7 : 1.0),
+                          BlendMode.dstATop,
+                        ),
+                      ),
+                    ),
+                  ),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
+                );
           }
         },
       );
     } else {
-      return FaceCard(
-        card.getImageAssetPath,
-        opacity: opacity,
+      return Container(
+        margin: EdgeInsets.all(4.0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(70),
+          image: DecorationImage(
+            colorFilter: ColorFilter.mode(
+              Colors.white.withOpacity(opacity ? 0.7 : 1.0),
+              BlendMode.dstATop,
+            ),
+            image: AssetImage(card.getImageAssetPath),
+          ),
+        ),
       );
     }
   }
