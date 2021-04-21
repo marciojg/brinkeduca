@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:brinkeduca/data/card_model.dart';
 
 class FaceCard extends StatelessWidget {
-  CardModel card;
   bool opacity;
+  String imagePath;
 
-  FaceCard({ this.card, this.opacity = false }) {
-    this.opacity = (card != null && card.getIsSelected) ? true : opacity;
+  FaceCard(this.imagePath, {this.opacity = false});
+
+  ImageProvider<Object> _getImage() {
+    bool onlineImage = this.imagePath.contains('http');
+
+    return onlineImage
+        ? NetworkImage(this.imagePath)
+        : AssetImage(this.imagePath);
   }
 
   @override
   Widget build(BuildContext context) {
+    _getImage();
     return Container(
       margin: EdgeInsets.all(4.0),
       decoration: BoxDecoration(
@@ -20,9 +26,7 @@ class FaceCard extends StatelessWidget {
             Colors.white.withOpacity(opacity ? 0.7 : 1.0),
             BlendMode.dstATop,
           ),
-          image: AssetImage(
-            card != null ? card.getImageAssetPath : 'assets/question.png'
-          ),
+          image: _getImage(),
         ),
       ),
     );

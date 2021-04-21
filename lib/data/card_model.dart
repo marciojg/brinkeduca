@@ -9,8 +9,7 @@ class CardModel {
   String name;
 
   CardModel(
-    this.image,
-    [this.selected = false]) {
+      [this.image = "assets/shared/question.png", this.selected = false]) {
     this.key = GlobalKey<FlipCardState>();
   }
 
@@ -20,7 +19,7 @@ class CardModel {
         image = snapshot.data()['image'],
         selected = false;
 
-  GlobalKey<FlipCardState>get getKey {
+  GlobalKey<FlipCardState> get getKey {
     return key;
   }
 

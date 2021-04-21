@@ -17,28 +17,30 @@ class ModeApp extends StatelessWidget {
           children: <Widget>[
             Padding(
               padding: EdgeInsets.only(bottom: 16.0),
-              child: Text(
-                'Bem vindo(a) ${Session.shared.studentName}',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500,
-                )
-              ),
+              child: Text('Bem vindo(a) ${Session.shared.studentName}',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                  )),
             ),
             Padding(
               padding: EdgeInsets.only(top: 16.0),
-              child: Buttons.defaultButton(text: 'Modo Offline', onTapFunction: () {
-                Session.shared.onlineApp = false;
-                Navigator.of(context).pushNamed(Routes.menu);
-              }),
+              child: Buttons.defaultButton(
+                  text: 'Modo Offline',
+                  onTapFunction: () {
+                    Session.shared.onlineApp = false;
+                    Navigator.of(context).pushNamed(Routes.menu);
+                  }),
             ),
             Padding(
               padding: EdgeInsets.only(top: 16.0),
-              child: Buttons.defaultButton(text: 'Modo Online', onTapFunction: () {
-                Session.shared.onlineApp = true;
-                Navigator.of(context).pushNamed(Routes.menu);
-              }),
+              child: Buttons.defaultButton(
+                  text: 'Modo Online',
+                  onTapFunction: () {
+                    Session.shared.onlineApp = true;
+                    Navigator.of(context).pushNamed(Routes.menu);
+                  }),
             ),
           ],
         ),

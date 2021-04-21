@@ -53,4 +53,5 @@ flutter {
 
 dependencies {
     implementation 'com.google.firebase:firebase-database:19.7.0'
+    implementation 'com.google.firebase:firebase-storage:19.2.2'
 }
