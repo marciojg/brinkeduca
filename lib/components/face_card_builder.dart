@@ -3,13 +3,17 @@ import 'package:brinkeduca/data/card_model.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-class FaceCardBuilder extends StatelessWidget {
+class FaceCardBuilder extends StatefulWidget {
   CardModel card;
   bool opacity;
+  dynamic url;
+  bool onlineApp;
 
   FaceCardBuilder({this.card, this.opacity = false}) {
-    this.opacity = (card != null && card.getIsSelected) ? true : opacity;
     this.card = card != null ? card : CardModel();
+    this.opacity = card.getIsSelected ? true : opacity;
+    this.onlineApp = Session.shared.onlineApp;
+    this.url = onlineApp ? _downloadURL(card) : card.getImageAssetPath;
   }
 
   Future<String> _downloadURL(CardModel card) async {
@@ -21,10 +25,23 @@ class FaceCardBuilder extends StatelessWidget {
   }
 
   @override
+  _FaceCardBuilderState createState() =>
+      _FaceCardBuilderState(opacity: opacity, url: url, onlineApp: onlineApp);
+}
+
+class _FaceCardBuilderState extends State<FaceCardBuilder> {
+  bool opacity;
+  dynamic url;
+  bool onlineApp;
+
+  _FaceCardBuilderState(
+      {@required this.opacity, @required this.url, @required this.onlineApp});
+
+  @override
   Widget build(BuildContext context) {
-    if (Session.shared.onlineApp) {
+    if (onlineApp) {
       return FutureBuilder(
-        future: _downloadURL(card),
+        future: url,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.waiting:
@@ -69,7 +86,7 @@ class FaceCardBuilder extends StatelessWidget {
               Colors.white.withOpacity(opacity ? 0.7 : 1.0),
               BlendMode.dstATop,
             ),
-            image: AssetImage(card.getImageAssetPath),
+            image: AssetImage(url),
           ),
         ),
       );

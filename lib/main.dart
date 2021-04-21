@@ -31,7 +31,6 @@ class BrinkEduca extends StatelessWidget {
           Routes.modeApp: (context) => ModeApp(),
           Routes.menu: (context) => Menu(),
           Routes.memoryGame: (context) => MemoryGame(),
-        }
-    );
+        });
   }
 }
