@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class GameList {
   static List<Game> getOfflineGames() {
-    return [Game('Jogo da Memória', Routes.memoryGame)];
+    return [Game('Jogo da Memória (Biologia)', Routes.memoryGame)];
   }
 
   static Future<List<Game>> getOnlineGames() async {

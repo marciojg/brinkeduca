@@ -30,7 +30,9 @@ class Dialogs {
     );
   }
 
-  static void showErrorDialog(BuildContext context, String title, String content) {
+  static void showMessageDialog(
+      BuildContext context, String title, String content,
+      {Function onPressed}) {
     showDialog(
       context: context,
       builder: (BuildContext context) {

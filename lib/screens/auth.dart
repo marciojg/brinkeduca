@@ -1,10 +1,10 @@
 import 'package:brinkeduca/components/buttons.dart';
-import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:brinkeduca/components/dialogs.dart';
 import 'package:brinkeduca/core/routes.dart';
 import 'package:brinkeduca/core/session.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class Auth extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -42,26 +42,27 @@ class Auth extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.only(top: 16.0),
                     child: Buttons.asyncButton(
-                        text: 'Fazer Login',
-                        onTapFunction: () async {
-                          if (_formKey.currentState.validate()) {
-                            var result = await checkUserInApi(
-                                int.parse(_rmController.text),
-                                context,
-                                _keyLoader);
+                      text: 'Fazer Login',
+                      onTapFunction: () async {
+                        if (_formKey.currentState.validate()) {
+                          var result = await checkUserInApi(
+                              int.parse(_rmController.text),
+                              context,
+                              _keyLoader);
 
-                            if (result) {
-                              Navigator.of(context)
-                                  .pushReplacementNamed(Routes.modeApp);
-                            } else {
-                              print('Deu ruim');
-                              Dialogs.showErrorDialog(
-                                  context,
-                                  'Erro ao efetuar login',
-                                  'Verifique o RM digitado');
-                            }
+                          if (result) {
+                            Navigator.of(context)
+                                .pushReplacementNamed(Routes.modeApp);
+                          } else {
+                            print('Deu ruim');
+                            Dialogs.showMessageDialog(
+                                context,
+                                'Erro ao efetuar login',
+                                'Verifique o RM digitado');
                           }
-                        }),
+                        }
+                      },
+                    ),
                   ),
                 ],
               ),
@@ -81,11 +82,14 @@ Future<bool> checkUserInApi(
     var response = await Dio().get('$url/$rm');
 
     print(response.data.toString());
-    Session.shared.studentName = response.data['data']['name'];
-
-    Navigator.of(keyLoader.currentContext, rootNavigator: true).pop();
-
-    return (response.data['status'] == 'ok') ? true : false;
+    if (response.data['status'] == 'ok') {
+      Session.shared.studentName = response.data['data']['name'];
+      Navigator.of(keyLoader.currentContext, rootNavigator: true).pop();
+      return true;
+    } else {
+      Navigator.of(keyLoader.currentContext, rootNavigator: true).pop();
+      return false;
+    }
   } catch (e) {
     print(e);
     return false;

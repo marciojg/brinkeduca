@@ -1,8 +1,7 @@
-import 'package:flutter/material.dart';
+import 'package:brinkeduca/components/menu_items.dart';
 import 'package:brinkeduca/core/session.dart';
 import 'package:brinkeduca/data/game_list.dart';
-
-import 'menu_items.dart';
+import 'package:flutter/material.dart';
 
 class MenuBuilder extends StatefulWidget {
   @override

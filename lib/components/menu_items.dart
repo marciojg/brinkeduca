@@ -42,7 +42,7 @@ class _MenuItemsState extends State<MenuItems> {
                       child: Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Icon(
-                          Icons.auto_stories,
+                          Icons.apps,
                           size: 50,
                           color: Colors.blue,
                         ),

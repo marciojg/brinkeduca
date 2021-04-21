@@ -20,12 +20,11 @@ class Session {
   String studentName;
   bool onlineApp;
   List<String> imagesSourceArray = [
-    'assets/elephant.png',
-    'assets/rabbit.png',
-    'assets/fox.png',
-    'assets/panda.png',
-    'assets/parrot.png',
-    'assets/monkey.png',
-    'assets/horse.png',
+    'assets/biology/elephant.png',
+    'assets/biology/fox.png',
+    'assets/biology/panda.png',
+    'assets/biology/parrot.png',
+    'assets/biology/monkey.png',
+    'assets/biology/horse.png',
   ];
 }

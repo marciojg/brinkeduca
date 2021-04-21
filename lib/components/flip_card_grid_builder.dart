@@ -9,11 +9,9 @@ class FlipCardGridBuilder extends StatefulWidget {
   dynamic data;
 
   FlipCardGridBuilder({this.startGame, this.firebaseKey}) {
-    if (Session.shared.onlineApp) {
-      this.data = ItemCardList.getPairsOfCardsOnline(firebaseKey);
-    } else {
-      this.data = ItemCardList.getPairsOfCardsOffline();
-    }
+    this.data = Session.shared.onlineApp
+        ? ItemCardList.getPairsOfCardsOnline(firebaseKey)
+        : ItemCardList.getPairsOfCardsOffline();
   }
 
   @override
