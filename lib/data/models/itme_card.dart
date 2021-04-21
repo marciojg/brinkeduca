@@ -2,18 +2,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 
-class CardModel {
+class ItemCard {
   bool selected;
   GlobalKey<FlipCardState> key;
   String image;
   String name;
 
-  CardModel(
-      [this.image = "assets/shared/question.png", this.selected = false]) {
+  ItemCard([this.image = 'assets/shared/question.png', this.selected = false]) {
     this.key = GlobalKey<FlipCardState>();
   }
 
-  CardModel.fromSnapshot(QueryDocumentSnapshot snapshot)
+  ItemCard.fromSnapshot(QueryDocumentSnapshot snapshot)
       : key = GlobalKey<FlipCardState>(),
         name = snapshot.data()['name'],
         image = snapshot.data()['image'],

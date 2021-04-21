@@ -1,22 +1,22 @@
 import 'package:brinkeduca/core/session.dart';
-import 'package:brinkeduca/data/card_model.dart';
+import 'package:brinkeduca/data/models/itme_card.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class FaceCardBuilder extends StatefulWidget {
-  CardModel card;
+  ItemCard card;
   bool opacity;
   dynamic url;
   bool onlineApp;
 
   FaceCardBuilder({this.card, this.opacity = false}) {
-    this.card = card != null ? card : CardModel();
+    this.card = card != null ? card : ItemCard();
     this.opacity = card.getIsSelected ? true : opacity;
     this.onlineApp = Session.shared.onlineApp;
     this.url = onlineApp ? _downloadURL(card) : card.getImageAssetPath;
   }
 
-  Future<String> _downloadURL(CardModel card) async {
+  Future<String> _downloadURL(ItemCard card) async {
     String downloadURL = await Session.shared.firebaseStorage
         .ref(card.getImageAssetPath)
         .getDownloadURL();

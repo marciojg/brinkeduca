@@ -1,23 +1,21 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:brinkeduca/core/routes.dart';
-import 'package:brinkeduca/firebase/firebase_connection.dart';
-
-import 'game_model.dart';
+import 'package:brinkeduca/core/session.dart';
+import 'package:brinkeduca/data/models/game.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class GameList {
-  static List<GameModel> getOfflineGames() {
-    return [
-      GameModel('Jogo da Memória', Routes.memoryGame)
-    ];
+  static List<Game> getOfflineGames() {
+    return [Game('Jogo da Memória', Routes.memoryGame)];
   }
 
-  static Future<List<GameModel>> getOnlineGames() async {
-    List<GameModel> _games = [];
-    QuerySnapshot querySnapshot = await FirebaseConnection.instance.collection('games').get();
+  static Future<List<Game>> getOnlineGames() async {
+    List<Game> _games = [];
+    QuerySnapshot querySnapshot =
+        await Session.shared.firebaseFirestore.collection('games').get();
 
     querySnapshot.docs.forEach((snapshot) {
       if (snapshot != null) {
-        _games.add(GameModel.fromSnapshot(snapshot));
+        _games.add(Game.fromSnapshot(snapshot));
       }
     });
 

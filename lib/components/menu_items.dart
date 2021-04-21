@@ -1,8 +1,8 @@
+import 'package:brinkeduca/data/models/game.dart';
 import 'package:flutter/material.dart';
-import 'package:brinkeduca/data/game_model.dart';
 
 class MenuItems extends StatefulWidget {
-  List<GameModel> listGames;
+  List<Game> listGames;
 
   MenuItems(this.listGames);
 
@@ -20,7 +20,7 @@ class _MenuItemsState extends State<MenuItems> {
         crossAxisCount: 2,
       ),
       itemBuilder: (context, index) {
-        GameModel menuItem = widget.listGames[index];
+        Game menuItem = widget.listGames[index];
         return Padding(
           padding: const EdgeInsets.all(20.0),
           child: GestureDetector(
@@ -28,7 +28,7 @@ class _MenuItemsState extends State<MenuItems> {
               Navigator.pushNamed(
                 context,
                 menuItem.page,
-                arguments: {'firebaseKey': menuItem.id },
+                arguments: {'firebaseKey': menuItem.id},
               );
             },
             child: Center(

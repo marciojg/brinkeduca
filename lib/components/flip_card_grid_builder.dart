@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:brinkeduca/components/flip_card_grid.dart';
 import 'package:brinkeduca/core/session.dart';
-import 'package:brinkeduca/data/card_list.dart';
+import 'package:brinkeduca/data/item_card_list.dart';
+import 'package:flutter/material.dart';
 
 class FlipCardGridBuilder extends StatefulWidget {
   String firebaseKey;
@@ -10,9 +10,9 @@ class FlipCardGridBuilder extends StatefulWidget {
 
   FlipCardGridBuilder({this.startGame, this.firebaseKey}) {
     if (Session.shared.onlineApp) {
-      this.data = CardList.getPairsOfCardsOnline(firebaseKey);
+      this.data = ItemCardList.getPairsOfCardsOnline(firebaseKey);
     } else {
-      this.data = CardList.getPairsOfCardsOffline();
+      this.data = ItemCardList.getPairsOfCardsOffline();
     }
   }
 

@@ -1,12 +1,12 @@
 import 'dart:async';
 
 import 'package:brinkeduca/components/face_card_builder.dart';
-import 'package:brinkeduca/data/card_model.dart';
+import 'package:brinkeduca/data/models/itme_card.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 
 class FlipCardGrid extends StatefulWidget {
-  List<CardModel> _data;
+  List<ItemCard> _data;
   bool startGame;
 
   FlipCardGrid(this._data, {this.startGame});
@@ -16,15 +16,15 @@ class FlipCardGrid extends StatefulWidget {
 }
 
 class _FlipCardGridState extends State<FlipCardGrid> {
-  final List<CardModel> _data;
+  final List<ItemCard> _data;
 
-  CardModel lastCard;
+  ItemCard lastCard;
 
   // Forçar o uso do _data recebido na instância de FlipCard, ou seja, que
   // ele não seja alterado a cada build.
   _FlipCardGridState(this._data);
 
-  Widget itemCard(CardModel currentCard, bool startGame) {
+  Widget itemCard(ItemCard currentCard, bool startGame) {
     bool isPair() {
       return lastCard.getImageAssetPath == currentCard.getImageAssetPath;
     }
