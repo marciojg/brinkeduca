@@ -16,3 +16,7 @@ It's a MVP of educational games for kids
 ```
     https://www.flaticon.com/br/autores/detailed-flat-circular/flat
 ```
+
+## Dependences
+
+- https://github.com/marciojg/brinkeduca-api
